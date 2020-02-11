@@ -1,3 +1,6 @@
+import random
+from utils import *
+
 class Affine():
 
     def __init__(self, alphabet, A=None, B=None):
@@ -9,7 +12,19 @@ class Affine():
             A -- El coeficiente A que necesita el cifrado.
             B -- El coeficiente B de desplazamiento.
         """
-        pass
+        self.alphabet = alphabet
+        if(A==None):
+            self.A = random.randint(0,25)
+        else: 
+            self.A = A
+        if(B==None):
+            self.B = random.randint(0,25)
+            temp = not prime_relative(self.A, self.B)
+            while(temp):
+                self.B = random.randint(0,25)
+                if(prime_relative(self.A, self.B)):
+                    temp = False
+
 
     def cipher(self, message):
         """
@@ -18,7 +33,14 @@ class Affine():
         Parámetro:
             message -- el mensaje a cifrar.
         """
-        pass
+        cipher_msg = ""
+
+        for c in message:
+            new_pos = (self.A*ALPHABET.index(c) + self.B) % len(self.alphabet)
+            cipher_msg += ALPHABET[new_pos]
+
+        return cipher_msg
+
 
     def decipher(self, criptotext):
         """
@@ -27,4 +49,11 @@ class Affine():
         Parámetro:
             criptotext -- el mensaje a descifrar.
         """
-        pass
+        modulo = len(self.alphabet)
+        decipher_text = ""
+
+        for c in criptotext:
+            new_pos = (inverse(self.A,modulo)*(ALPHABET.index(c) - self.B)) % modulo
+            decipher_text += ALPHABET[new_pos]
+
+        return decipher_text

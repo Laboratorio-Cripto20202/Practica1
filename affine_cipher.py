@@ -13,17 +13,25 @@ class Affine():
             B -- El coeficiente B de desplazamiento.
         """
         self.alphabet = alphabet
+        n = len(self.alphabet)
         if(A==None):
             self.A = random.randint(0,25)
+            temp = not prime_relative(self.A, n)
+            while(temp):
+                self.A = random.randint(0,25)
+                if(prime_relative(self.A, n)):
+                    temp = False
         else: 
             self.A = A
         if(B==None):
             self.B = random.randint(0,25)
-            temp = not prime_relative(self.A, self.B)
+            temp = not prime_relative(n, self.B)
             while(temp):
                 self.B = random.randint(0,25)
-                if(prime_relative(self.A, self.B)):
+                if(prime_relative(n, self.B)):
                     temp = False
+        else:
+            self.B = B
 
 
     def cipher(self, message):

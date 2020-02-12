@@ -1,4 +1,5 @@
 #from affine_test import alphabet
+import random
 
 alphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
 #Lista con el alfabeto definido
@@ -17,6 +18,23 @@ def prime_relative(a, b):
         return a == 1
     else:
         return prime_relative(b, a % b)
+
+def get_key_affine(n):
+	"""
+	Nos regresa un valor para formar la llave de un
+	cifrado afin. Es decir, k y n seran primos relativos
+    Parámetro:
+	    n -- la longitud del alfabeto
+	"""
+	k = random.randint(0,25)
+	temp = not prime_relative(k, n)
+
+	while(temp):
+		k = random.randint(0,25)
+		if(prime_relative(k, n)):
+			temp = False
+
+	return k
 
 def inverse(a, n):
     """

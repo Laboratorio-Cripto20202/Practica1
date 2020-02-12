@@ -14,23 +14,18 @@ class Affine():
         """
         self.alphabet = alphabet
         n = len(self.alphabet)
+
         if(A==None):
-            self.A = random.randint(0,25)
-            temp = not prime_relative(self.A, n)
-            while(temp):
-                self.A = random.randint(0,25)
-                if(prime_relative(self.A, n)):
-                    temp = False
+            self.A = get_key_affine(n)
         else: 
+            if(not prime_relative(A,n)):
+                raise CryptographyException()
             self.A = A
         if(B==None):
-            self.B = random.randint(0,25)
-            temp = not prime_relative(n, self.B)
-            while(temp):
-                self.B = random.randint(0,25)
-                if(prime_relative(n, self.B)):
-                    temp = False
+            self.B = get_key_affine(n)
         else:
+            if(not prime_relative(B,n) and B!=0):
+                raise CryptographyException()
             self.B = B
 
 

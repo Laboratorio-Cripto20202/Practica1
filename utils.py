@@ -1,4 +1,3 @@
-#from affine_test import alphabet
 import random
 
 alphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
@@ -38,11 +37,15 @@ def get_key_affine(n):
 
 def inverse(a, n):
     """
-    Encuentra el inverso multiplicativo del numero dado, . 
+    Encuentra el inverso multiplicativo del numero dado. Esto 
+    claro, tomando en cuenta que trabajamos con modulo n. 
     Parámetro:
         a -- el numero al cual se le quiere encontrar el
             inverso multiplicativo.
         n -- el tamanio del alfabeto
+
+    Este algoritmo esta basado en un pseudocodigo de wikipedia:
+    https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
     """
     
     t, newT = 0, 1
